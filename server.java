@@ -5,6 +5,13 @@ import java.awt.*; // for Color class
 import java.awt.event.*; // actionListener interface(for providing functionalities like clicking on ImageIcon)
 
 public class server extends JFrame implements ActionListener{
+
+
+    //declaring it globally because we need it in another method
+    JTextField text;
+    JPanel a1;
+    Box vertical=Box.createVerticalBox(); // we have to create a vertical box so that messages can be show below one and one
+    
     //constructor is made because we want to show the frame as soon as main is called
     server(){
 
@@ -152,13 +159,13 @@ public class server extends JFrame implements ActionListener{
 
 
         // now making text area
-        JPanel a1=new JPanel();
+        a1=new JPanel();
         a1.setBounds(5, 75, 440, 570);
         add(a1);
 
 
         // adding text field section below text area
-        JTextField text=new JTextField(); // for making of the text writing bar
+        text=new JTextField(); // for making of the text writing bar
         text.setBounds(5, 655, 310, 40);
         text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
         add(text);
@@ -169,6 +176,7 @@ public class server extends JFrame implements ActionListener{
         send.setBounds(320, 655, 123, 40);
         send.setBackground(new Color(7, 94, 84));
         send.setForeground(Color.WHITE);
+        send.addActionListener(this); // adding event listener on JButton class
         send.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
         add(send);
 
@@ -184,7 +192,25 @@ public class server extends JFrame implements ActionListener{
     // overriding  the abstract method of interface ActionListener
     @Override
     public void actionPerformed(ActionEvent ae){
-        
+        String out=text.getText(); // to get the string present inside the text box when send button is clicked
+        JLabel output=new JLabel(out); // adding the text to JLabel
+        JPanel p2=new JPanel(); // adding the JLabel to JPanel
+        p2.add(output);
+
+        a1.setLayout(new BorderLayout()); // converting the text area layout to border layout that will help us to align the things on five positions
+
+        JPanel right = new JPanel(new BorderLayout()); // making a JPanel that will have border layout
+        right.add(p2, BorderLayout.LINE_END); // we can't directly pass the text to this function so we have used p2 and placed it on right side of new panel
+        vertical.add(right); // adding the right JPanel to vertical box which will align messages one below one
+        vertical.add(Box.createVerticalStrut(15)); // adding the space between JPanels in vertical box
+
+        a1.add(vertical, BorderLayout.PAGE_START); // here we are adding the vertical box to text area on starting of the text box
+
+
+        // we have to reload the page as we click on the button so we will use repaint, invalidate and validate function
+        repaint();
+        invalidate();
+        validate();
     }
 
     public static void main(String[] args){
