@@ -92,6 +92,53 @@ public class server extends JFrame implements ActionListener{
             System.out.println(e);
         }
 
+
+        // for phone
+        try{
+            JLabel phone;
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i10=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i11=i10.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);
+                ImageIcon i12=new ImageIcon(i11);
+                phone=new JLabel(i12);
+                phone.setBounds(360, 20, 25, 30);
+                p1.add(phone);
+            }
+            else{
+                phone=new JLabel("Phone");
+                phone.setBounds(360, 20, 35, 30);
+                p1.add(phone);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+
+        try{
+            JLabel morebutton;
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i13=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i14=i13.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);
+                ImageIcon i15=new ImageIcon(i14);
+                morebutton=new JLabel(i15);
+                morebutton.setBounds(420, 20, 10, 25);
+                p1.add(morebutton);
+            }
+            else{
+                morebutton=new JLabel("morebutton");
+                morebutton.setBounds(420, 20, 10, 25);
+                p1.add(morebutton);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+
+        // writting the name
+        JLabel name=new JLabel("Varun");
+        name.setBounds(110, 15, 100,  18);
+        p1.add(name);
+
         setSize(450,700); //method from JFrame class to set the width and height of frame respectively
         setLocation(200,50); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
         getContentPane().setBackground(Color.WHITE);
