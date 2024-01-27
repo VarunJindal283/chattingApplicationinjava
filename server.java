@@ -1,6 +1,7 @@
 package chattingApplicationinjava;
 
 import javax.swing.*; //extended packages of java, for JFrame class
+import javax.swing.border.*; // for EmptyBorder
 import java.awt.*; // for Color class
 import java.awt.event.*; // actionListener interface(for providing functionalities like clicking on ImageIcon)
 
@@ -193,9 +194,11 @@ public class server extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae){
         String out=text.getText(); // to get the string present inside the text box when send button is clicked
-        JLabel output=new JLabel(out); // adding the text to JLabel
-        JPanel p2=new JPanel(); // adding the JLabel to JPanel
-        p2.add(output);
+        // JLabel output=new JLabel(out); // adding the text to JLabel
+        // JPanel p2=new JPanel(); // adding the JLabel to JPanel
+        // p2.add(output);
+
+        JPanel p2=formatLabel(out); // getting it from below function
 
         a1.setLayout(new BorderLayout()); // converting the text area layout to border layout that will help us to align the things on five positions
 
@@ -211,6 +214,21 @@ public class server extends JFrame implements ActionListener{
         repaint();
         invalidate();
         validate();
+    }
+
+    public static JPanel formatLabel(String out){
+        JPanel panel=new JPanel();
+        // panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS);) // check this line
+
+        String modifiedOut="<html><p style=\"width: 150px\">" + out + "</p></html>"; // we have use html paragraph tag to make the width of box 150px
+        JLabel output=new JLabel(modifiedOut);
+        output.setFont(new Font("Tahoma", Font.PLAIN, 16)); // changing the font of the output label
+        output.setBackground(new Color(37, 211, 102)); // changing the background color of output label
+        output.setOpaque(true); // default the background of label is transparent we have to make it opaque to show the background color
+        output.setBorder(new EmptyBorder(15, 15, 15, 50)); // for providing padding to the panel
+        panel.add(output);
+
+        return panel;
     }
 
     public static void main(String[] args){
