@@ -134,13 +134,47 @@ public class server extends JFrame implements ActionListener{
         }
 
 
+
         // writting the name
-        JLabel name=new JLabel("Varun");
+        JLabel name=new JLabel("Varun"); // for writing the name of the profile holder
         name.setBounds(110, 15, 100,  18);
+        name.setForeground(Color.WHITE); // for changing the test color
+        name.setFont(new Font("SAN_SERIF", Font.BOLD, 18)); // setting font type, style and size respectively
         p1.add(name);
+
+
+        // showing status
+        JLabel status = new JLabel("Active Now");
+        status.setBounds(110, 35, 100, 18);
+        status.setForeground(Color.WHITE);
+        status.setFont(new Font("SAN_SERIF", Font.BOLD, 14));
+        p1.add(status);
+
+
+        // now making text area
+        JPanel a1=new JPanel();
+        a1.setBounds(5, 75, 440, 570);
+        add(a1);
+
+
+        // adding text field section below text area
+        JTextField text=new JTextField(); // for making of the text writing bar
+        text.setBounds(5, 655, 310, 40);
+        text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        add(text);
+
+
+        // adding button at side of the text field section
+        JButton send=new JButton("Send"); // for making button with text
+        send.setBounds(320, 655, 123, 40);
+        send.setBackground(new Color(7, 94, 84));
+        send.setForeground(Color.WHITE);
+        send.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        add(send);
 
         setSize(450,700); //method from JFrame class to set the width and height of frame respectively
         setLocation(200,50); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
+        setUndecorated(true); // for removing header section
         getContentPane().setBackground(Color.WHITE);
         
         //it should be at last so that after all changes you can see the frame
