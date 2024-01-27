@@ -4,6 +4,8 @@ import javax.swing.*; //extended packages of java, for JFrame class
 import javax.swing.border.*; // for EmptyBorder
 import java.awt.*; // for Color class
 import java.awt.event.*; // actionListener interface(for providing functionalities like clicking on ImageIcon)
+import java.util.*; // for calender class
+import java.text.*; // for date format
 
 public class server extends JFrame implements ActionListener{
 
@@ -209,7 +211,8 @@ public class server extends JFrame implements ActionListener{
 
         a1.add(vertical, BorderLayout.PAGE_START); // here we are adding the vertical box to text area on starting of the text box
 
-
+        text.setText(""); // for setting the text box empty after sending the message
+        
         // we have to reload the page as we click on the button so we will use repaint, invalidate and validate function
         repaint();
         invalidate();
@@ -218,7 +221,7 @@ public class server extends JFrame implements ActionListener{
 
     public static JPanel formatLabel(String out){
         JPanel panel=new JPanel();
-        // panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS);) // check this line
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // for getting the things we add in JPanel aligned in Y-axis
 
         String modifiedOut="<html><p style=\"width: 150px\">" + out + "</p></html>"; // we have use html paragraph tag to make the width of box 150px
         JLabel output=new JLabel(modifiedOut);
@@ -227,6 +230,14 @@ public class server extends JFrame implements ActionListener{
         output.setOpaque(true); // default the background of label is transparent we have to make it opaque to show the background color
         output.setBorder(new EmptyBorder(15, 15, 15, 50)); // for providing padding to the panel
         panel.add(output);
+
+        Calendar cal = Calendar.getInstance(); // getting the date and time
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // for formatting the time we get from above command
+
+        JLabel time=new JLabel(); // creating a new JLabel for adding the time
+        time.setText(sdf.format(cal.getTime())); // setting the text inside the JLabel after formatting the value we got from Calender object
+
+        panel.add(time); // adding the time to the panel
 
         return panel;
     }
