@@ -133,8 +133,35 @@ public class client extends JFrame implements ActionListener{
         status.setFont(new Font("SAN_SERIF", Font.BOLD, 14));
         header.add(status);
 
+        // adding body panel below header
+        JPanel body=new JPanel();
+        body.setBounds(5, 75, 440, 570);
+        add(body);
+
+        // adding footer panel below header
+        JPanel footer=new JPanel();
+        footer.setBounds(0, 645, 450, 55);
+        footer.setBackground(Color.lightGray);
+        footer.setLayout(null);
+        add(footer);
+
+        // text bar on footer panel
+        JTextField text=new JTextField();
+        text.setBounds(5, 10, 310, 40);
+        text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        footer.add(text);
+
+        // send button on footer panel
+        JButton send=new JButton("Send");
+        send.setBounds(320, 10, 123, 40);
+        send.setBackground(new Color(7, 94, 84));
+        send.setForeground(Color.WHITE);
+        send.addActionListener(this);
+        send.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        footer.add(send);
+
         // whole frame configuration
-        setSize(450, 770);
+        setSize(450, 700);
         setLocation(200, 70);
         setUndecorated(true);
         getContentPane().setBackground(Color.WHITE);
