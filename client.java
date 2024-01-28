@@ -138,7 +138,7 @@ public class client extends JFrame implements ActionListener{
         body.setBounds(5, 75, 440, 570);
         add(body);
 
-        // adding footer panel below header
+        // adding footer panel below body
         JPanel footer=new JPanel();
         footer.setBounds(0, 645, 450, 55);
         footer.setBackground(Color.lightGray);
