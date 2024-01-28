@@ -42,7 +42,7 @@ public class client extends JFrame implements ActionListener{
             System.out.println(e);
         }
 
-        //profile on header panel
+        // profile on header panel
         try{
             if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
                 ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
@@ -55,11 +55,83 @@ public class client extends JFrame implements ActionListener{
             else{
                 JPanel profile=new JPanel();
                 profile.setBounds(40, 10, 50, 50);
+                profile.setBackground(Color.DARK_GRAY);
                 header.add(profile);
             }
         }catch(Exception e){
             System.out.println(e);
         }
+
+        // video icon on header panel
+        try{
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i7=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i8=i7.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+                ImageIcon i9=new ImageIcon(i8);
+                JLabel video=new JLabel(i9);
+                video.setBounds(300, 20, 30, 30);
+                header.add(video);
+            }
+            else{
+                JLabel video=new JLabel("<html><p style=\"font-size:350%;\">&#9729;</p></html>");
+                video.setBounds(300, 22, 40, 30);
+                header.add(video);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        // phone icon on header panel
+        try{
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i10=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i11=i10.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+                ImageIcon i12=new ImageIcon(i11);
+                JLabel phone=new JLabel(i12);
+                phone.setBounds(360, 20, 25, 30);
+                header.add(phone);
+            }
+            else{
+                JLabel phone=new JLabel("<html><p style=\"font-size:210%\">&#9742;</p></html>");
+                phone.setBounds(370, 18, 25, 30);
+                header.add(phone);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        // more icon on header panel
+        try{
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i13=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i14=i13.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+                ImageIcon i15=new ImageIcon(i14);
+                JLabel more=new JLabel(i15);
+                more.setBounds(420, 20, 10, 25);
+                header.add(more);
+            }
+            else{
+                JLabel more=new JLabel("<html><p style=\"font-size:200%;\">&#8942;</p></html>");
+                more.setBounds(420, 20, 10, 25);
+                header.add(more);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        // name on header panel
+        JLabel name=new JLabel("Varun");
+        name.setBounds(110, 15, 100, 18);
+        name.setForeground(Color.WHITE);
+        name.setFont(new Font("SAN_SERIF", Font.BOLD, 18));
+        header.add(name);
+
+        // status on header panel
+        JLabel status=new JLabel("Active Now");
+        status.setBounds(110, 35, 100, 18);
+        status.setForeground(Color.WHITE);
+        status.setFont(new Font("SAN_SERIF", Font.BOLD, 14));
+        header.add(status);
 
         // whole frame configuration
         setSize(450, 770);
