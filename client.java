@@ -42,6 +42,25 @@ public class client extends JFrame implements ActionListener{
             System.out.println(e);
         }
 
+        //profile on header panel
+        try{
+            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
+                ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+                Image i5=i4.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+                ImageIcon i6=new ImageIcon(i5);
+                JLabel profile=new JLabel(i6);
+                profile.setBounds(40, 10, 50, 50);
+                header.add(profile);
+            }
+            else{
+                JPanel profile=new JPanel();
+                profile.setBounds(40, 10, 50, 50);
+                header.add(profile);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
         // whole frame configuration
         setSize(450, 770);
         setLocation(200, 70);
