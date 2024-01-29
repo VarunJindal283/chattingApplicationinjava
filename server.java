@@ -6,21 +6,24 @@ import java.awt.*; // for Color class
 import java.awt.event.*; // actionListener interface(for providing functionalities like clicking on ImageIcon)
 import java.util.*; // for calender class
 import java.text.*; // for date format
+import java.net.*; // for sockets
+import java.io.*; // for data input/output stream
 
-public class server extends JFrame implements ActionListener{
+public class server implements ActionListener{
 
-
+    static JFrame f=new JFrame();
     //declaring it globally because we need it in another method
     JTextField text;
     JPanel a1;
-    Box vertical=Box.createVerticalBox(); // we have to create a vertical box so that messages can be show below one and one
+    static Box vertical=Box.createVerticalBox(); // we have to create a vertical box so that messages can be show below one and one
     JPanel dummya1=new JPanel();
     JScrollPane scrollPane=new JScrollPane(dummya1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    static DataOutputStream dout;
     
     //constructor is made because we want to show the frame as soon as main is called
     server(){
 
-        setLayout(null); // to show differnet differnet types of layouts
+        f.setLayout(null); // to show differnet differnet types of layouts
 
         // if you want to divide Frame into parts use JPanel class
         JPanel p1=new JPanel();
@@ -28,7 +31,7 @@ public class server extends JFrame implements ActionListener{
         // setBounds will only work when behind object's setLayout is null
         p1.setBounds(0, 0, 450, 70); // setting the position and size of p1 panel margin from left, margin for top, width, height respectively
         p1.setLayout(null); // for working of top label setBounds
-        add(p1);
+        f.add(p1);
 
 
         //  for show the icon on top left corner
@@ -166,14 +169,14 @@ public class server extends JFrame implements ActionListener{
         // now making text area
         a1=new JPanel();
         a1.setBounds(5, 75, 440, 570);
-        add(a1);
+        f.add(a1);
 
 
         // adding text field section below text area
         text=new JTextField(); // for making of the text writing bar
         text.setBounds(5, 655, 310, 40);
         text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
-        add(text);
+        f.add(text);
 
 
         // adding button at side of the text field section
@@ -183,15 +186,15 @@ public class server extends JFrame implements ActionListener{
         send.setForeground(Color.WHITE);
         send.addActionListener(this); // adding event listener on JButton class
         send.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
-        add(send);
+        f.add(send);
 
-        setSize(450,700); //method from JFrame class to set the width and height of frame respectively
-        setLocation(200,50); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
-        setUndecorated(true); // for removing header section
-        getContentPane().setBackground(Color.WHITE);
+        f.setSize(450,700); //method from JFrame class to set the width and height of frame respectively
+        f.setLocation(200,50); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
+        f.setUndecorated(true); // for removing header section
+        f.getContentPane().setBackground(Color.WHITE);
         
         //it should be at last so that after all changes you can see the frame
-        setVisible(true); //frame is default hidden to show the frame we use this method from JFrame class
+        f.setVisible(true); //frame is default hidden to show the frame we use this method from JFrame class
     }
 
     // overriding  the abstract method of interface ActionListener
@@ -218,12 +221,18 @@ public class server extends JFrame implements ActionListener{
 
         a1.add(scrollPane); // here we are adding scroll to a1
 
+        try{
+            dout.writeUTF(out); // writing message in socket
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         text.setText(""); // for setting the text box empty after sending the message
         
         // we have to reload the page as we click on the button so we will use repaint, invalidate and validate function
-        repaint();
-        invalidate();
-        validate();
+        f.repaint();
+        f.invalidate();
+        f.validate();
     }
 
     public static JPanel formatLabel(String out){
@@ -251,5 +260,27 @@ public class server extends JFrame implements ActionListener{
 
     public static void main(String[] args){
         new server(); // will make the object of class server and will call the constructor
+
+        try{
+            ServerSocket skt=new ServerSocket(6001); // making a server at port 6001
+            // for infinitely accepting messages which are sent by client
+            while(true){
+                Socket s=skt.accept(); // this will accept the connection from client and stores in socket s
+                DataInputStream din=new DataInputStream(s.getInputStream()); // this will help to read data from socket
+                dout=new DataOutputStream(s.getOutputStream()); // this will help to write data in socket
+                // for infinitely writing and reading messages in socket s
+                while(true){
+                    String msg=din.readUTF(); // msg contains message sent by client
+                    JPanel panel=formatLabel(msg); // format message same as we have formatted above message
+
+                    JPanel left=new JPanel(new BorderLayout());// making left for adding panel to the left
+                    left.add(panel, BorderLayout.LINE_START);// panel added to line start of left
+                    vertical.add(left); //left added to vertical
+                    f.validate(); // body refreshed
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace(); // returns lines at which error has occurred
+        }
     }
 }
