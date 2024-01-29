@@ -14,10 +14,10 @@ public class server implements ActionListener{
     static JFrame f=new JFrame();
     //declaring it globally because we need it in another method
     JTextField text;
-    JPanel a1;
+    static JPanel a1;
     static Box vertical=Box.createVerticalBox(); // we have to create a vertical box so that messages can be show below one and one
-    JPanel dummya1=new JPanel();
-    JScrollPane scrollPane=new JScrollPane(dummya1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    static JPanel dummya1=new JPanel();
+    static JScrollPane scrollPane=new JScrollPane(dummya1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     static DataOutputStream dout;
     
     //constructor is made because we want to show the frame as soon as main is called
@@ -272,10 +272,17 @@ public class server implements ActionListener{
                 while(true){
                     String msg=din.readUTF(); // msg contains message sent by client
                     JPanel panel=formatLabel(msg); // format message same as we have formatted above message
-
+                    
                     JPanel left=new JPanel(new BorderLayout());// making left for adding panel to the left
                     left.add(panel, BorderLayout.LINE_START);// panel added to line start of left
                     vertical.add(left); //left added to vertical
+                    vertical.add(Box.createVerticalStrut(15));
+                    
+                    dummya1.setLayout(new BorderLayout());
+                    dummya1.add(vertical, BorderLayout.PAGE_START);
+
+                    a1.add(scrollPane);
+                    
                     f.validate(); // body refreshed
                 }
             }
