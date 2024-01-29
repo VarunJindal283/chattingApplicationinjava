@@ -1,9 +1,10 @@
 package chattingApplicationinjava;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.text.*;
 
 public class client extends JFrame implements ActionListener{
 
@@ -224,9 +225,21 @@ public class client extends JFrame implements ActionListener{
         msgLabel.setOpaque(true);
         msgLabel.setBorder(new EmptyBorder(15, 15, 15, 50));
 
+        // getting current date and time
+        Calendar cal=Calendar.getInstance();
+
+        // for formatting time from whole string from cal
+        SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
+
+        // adding time to label
+        JLabel time=new JLabel();
+        time.setText(sdf.format(cal.getTime()));
+
         // adding the label to panel
         JPanel msgPanel=new JPanel();
+        msgPanel.setLayout(new BoxLayout(msgPanel, BoxLayout.Y_AXIS)); // so that label should be added one below one
         msgPanel.add(msgLabel);
+        msgPanel.add(time);
 
         // returning the final panel
         return msgPanel;
