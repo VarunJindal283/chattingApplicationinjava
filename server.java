@@ -14,6 +14,8 @@ public class server extends JFrame implements ActionListener{
     JTextField text;
     JPanel a1;
     Box vertical=Box.createVerticalBox(); // we have to create a vertical box so that messages can be show below one and one
+    JPanel dummya1=new JPanel();
+    JScrollPane scrollPane=new JScrollPane(dummya1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     
     //constructor is made because we want to show the frame as soon as main is called
     server(){
@@ -202,14 +204,19 @@ public class server extends JFrame implements ActionListener{
 
         JPanel p2=formatLabel(out); // getting it from below function
 
-        a1.setLayout(new BorderLayout()); // converting the text area layout to border layout that will help us to align the things on five positions
+        // a1.setLayout(new BorderLayout()); // converting the text area layout to border layout that will help us to align the things on five positions
 
         JPanel right = new JPanel(new BorderLayout()); // making a JPanel that will have border layout
         right.add(p2, BorderLayout.LINE_END); // we can't directly pass the text to this function so we have used p2 and placed it on right side of new panel
         vertical.add(right); // adding the right JPanel to vertical box which will align messages one below one
         vertical.add(Box.createVerticalStrut(15)); // adding the space between JPanels in vertical box
 
-        a1.add(vertical, BorderLayout.PAGE_START); // here we are adding the vertical box to text area on starting of the text box
+        dummya1.setLayout(new BorderLayout());
+        dummya1.add(vertical, BorderLayout.PAGE_START); // here we are adding the vertical box to dummy a1 on starting of the text box
+
+        scrollPane.setPreferredSize(new Dimension(440, 570)); // setting width and height after which scroll will start working
+
+        a1.add(scrollPane); // here we are adding scroll to a1
 
         text.setText(""); // for setting the text box empty after sending the message
         
