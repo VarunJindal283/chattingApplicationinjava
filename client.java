@@ -1,10 +1,17 @@
 package chattingApplicationinjava;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class client extends JFrame implements ActionListener{
 
+
+    JPanel body;
+    JTextField text;
+    Box vertical=Box.createVerticalBox();
+    JScrollPane scrollPane = new JScrollPane(vertical);
     client(){
         setLayout(null);
 
@@ -134,7 +141,7 @@ public class client extends JFrame implements ActionListener{
         header.add(status);
 
         // adding body panel below header
-        JPanel body=new JPanel();
+        body=new JPanel();
         body.setBounds(5, 75, 440, 570);
         add(body);
 
@@ -146,7 +153,7 @@ public class client extends JFrame implements ActionListener{
         add(footer);
 
         // text bar on footer panel
-        JTextField text=new JTextField();
+        text=new JTextField();
         text.setBounds(5, 10, 310, 40);
         text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
         footer.add(text);
@@ -171,7 +178,58 @@ public class client extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent ae){
+        //getting text from input text box
+        String out=text.getText();
 
+        // making panel conntaining text from input box
+        JPanel msgpanel=formatPanel(out);
+        
+        // add msgpanel to right panel which will place it at ending of the line
+        JPanel right=new JPanel(new BorderLayout());
+        right.add(msgpanel, BorderLayout.LINE_END);
+
+        
+        
+        // right is add to vertical box plus a strut for providing the space between two msgs
+        vertical.add(right);
+        vertical.add(Box.createVerticalStrut(15));
+
+
+        
+        // setPreferredSize(new Dimension(450, 110));
+        // add(scrollPane, BorderLayout.CENTER);
+        
+        
+        // vertical box is placed above body to add msg one below one
+        body.setLayout(new BorderLayout());
+        body.add(vertical, BorderLayout.PAGE_START);
+
+
+
+        // for refreshing the body, to get new text on screen
+        repaint();
+        invalidate();
+        validate();
+        
+    }
+
+    public static JPanel formatPanel(String out){
+        // modified string so that we can get msg width max width 150px
+        String modifiedOut="<html><p style=\"width:150px;\">" + out + "</p></html>";
+
+        // adding the modified string to label and styling it
+        JLabel msgLabel=new JLabel(modifiedOut);
+        msgLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        msgLabel.setBackground(new Color(37, 211, 102));
+        msgLabel.setOpaque(true);
+        msgLabel.setBorder(new EmptyBorder(15, 15, 15, 50));
+
+        // adding the label to panel
+        JPanel msgPanel=new JPanel();
+        msgPanel.add(msgLabel);
+
+        // returning the final panel
+        return msgPanel;
     }
     public static void main(String[] args){
         new client();
