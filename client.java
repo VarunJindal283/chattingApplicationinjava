@@ -175,7 +175,7 @@ public class client implements ActionListener{
 
         // whole frame configuration
         mainFrame.setSize(450, 700);
-        mainFrame.setLocation(200, 70);
+        mainFrame.setLocation(800, 70);
         mainFrame.setUndecorated(true);
         mainFrame.getContentPane().setBackground(Color.WHITE);
         mainFrame.setVisible(true);
