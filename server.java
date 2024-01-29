@@ -128,7 +128,7 @@ public class server implements ActionListener{
             System.out.println(e);
         }
 
-
+        // for morebutton
         try{
             JLabel morebutton;
             if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
@@ -151,7 +151,7 @@ public class server implements ActionListener{
 
 
         // writting the name
-        JLabel name=new JLabel("Varun"); // for writing the name of the profile holder
+        JLabel name=new JLabel("Varun's Server"); // for writing the name of the profile holder
         name.setBounds(110, 15, 100,  18);
         name.setForeground(Color.WHITE); // for changing the test color
         name.setFont(new Font("SAN_SERIF", Font.BOLD, 18)); // setting font type, style and size respectively
@@ -189,7 +189,7 @@ public class server implements ActionListener{
         f.add(send);
 
         f.setSize(450,700); //method from JFrame class to set the width and height of frame respectively
-        f.setLocation(200,50); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
+        f.setLocation(250, 70); //Frame is default set at top left corner, this function is used to provide margins from left and top side respectively
         f.setUndecorated(true); // for removing header section
         f.getContentPane().setBackground(Color.WHITE);
         
@@ -280,6 +280,8 @@ public class server implements ActionListener{
                     
                     dummya1.setLayout(new BorderLayout());
                     dummya1.add(vertical, BorderLayout.PAGE_START);
+
+                    scrollPane.setPreferredSize(new Dimension(440, 570));
 
                     a1.add(scrollPane);
                     

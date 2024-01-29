@@ -133,7 +133,7 @@ public class client implements ActionListener{
         }
 
         // name on header panel
-        JLabel name=new JLabel("Varun");
+        JLabel name=new JLabel("Varun's Client");
         name.setBounds(110, 15, 100, 18);
         name.setForeground(Color.WHITE);
         name.setFont(new Font("SAN_SERIF", Font.BOLD, 18));
@@ -286,6 +286,9 @@ public class client implements ActionListener{
                 // adding vertical to dummy body
                 dummyBody.setLayout(new BorderLayout());
                 dummyBody.add(vertical, BorderLayout.PAGE_START);
+
+                // setting minimum size of scroll window
+                scrollPane.setPreferredSize(new Dimension(440, 570));
 
                 // adding scroll to body
                 body.add(scrollPane);
