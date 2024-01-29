@@ -5,24 +5,28 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.text.*;
+import java.net.*;
+import java.io.*;
 
-public class client extends JFrame implements ActionListener{
+public class client implements ActionListener{
 
 
-    JPanel body;
+    static JFrame mainFrame=new JFrame();
+    static JPanel body;
     JTextField text;
-    Box vertical=Box.createVerticalBox();
-    JPanel dummyBody=new JPanel(); // as we can't apply border layout page end on vertical box inside scroll page, it will not work, so we have to make dummy body and add vertical to it and then add it to scroll
-    JScrollPane scrollPane=new JScrollPane(dummyBody, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    static Box vertical=Box.createVerticalBox();
+    static JPanel dummyBody=new JPanel(); // as we can't apply border layout page end on vertical box inside scroll page, it will not work, so we have to make dummy body and add vertical to it and then add it to scroll
+    static JScrollPane scrollPane=new JScrollPane(dummyBody, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    static DataOutputStream dout;
     client(){
-        setLayout(null);
+        mainFrame.setLayout(null);
 
         // green header main panel
         JPanel header=new JPanel();
         header.setBackground(new Color(7, 94, 84));
         header.setBounds(0, 0, 450, 70);
         header.setLayout(null);
-        add(header);
+        mainFrame.add(header);
 
 
         // arrow on header panel
@@ -145,14 +149,14 @@ public class client extends JFrame implements ActionListener{
         // adding body panel below header
         body=new JPanel();
         body.setBounds(5, 75, 440, 570);
-        add(body);
+        mainFrame.add(body);
 
         // adding footer panel below body
         JPanel footer=new JPanel();
         footer.setBounds(0, 645, 450, 55);
         footer.setBackground(Color.lightGray);
         footer.setLayout(null);
-        add(footer);
+        mainFrame.add(footer);
 
         // text bar on footer panel
         text=new JTextField();
@@ -170,11 +174,11 @@ public class client extends JFrame implements ActionListener{
         footer.add(send);
 
         // whole frame configuration
-        setSize(450, 700);
-        setLocation(200, 70);
-        setUndecorated(true);
-        getContentPane().setBackground(Color.WHITE);
-        setVisible(true);
+        mainFrame.setSize(450, 700);
+        mainFrame.setLocation(200, 70);
+        mainFrame.setUndecorated(true);
+        mainFrame.getContentPane().setBackground(Color.WHITE);
+        mainFrame.setVisible(true);
     }
 
 
@@ -204,13 +208,20 @@ public class client extends JFrame implements ActionListener{
         // dummy body was added to scroll and now adding scroll to body
         body.add(scrollPane);
 
+        // writing the input from text box to socket using dout
+        try{
+            dout.writeUTF(out);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         // setting text box as empty after send button is clicked
         text.setText("");
 
         // for refreshing the body, to get new text on screen
-        repaint();
-        invalidate();
-        validate();
+        mainFrame.repaint();
+        mainFrame.invalidate();
+        mainFrame.validate();
         
     }
 
@@ -245,6 +256,45 @@ public class client extends JFrame implements ActionListener{
         return msgPanel;
     }
     public static void main(String[] args){
+        // calling the constructor, so that frame can immediately be made as soon as function main is running
         new client();
+
+        // making socket for receiving and sending messages to server
+        try{
+            Socket s=new Socket("127.0.0.1", 6001); // connecting the socket to localhost(127.0.0.1) at port 6001
+
+            // making din and dout for reading and writing data in socket
+            DataInputStream din=new DataInputStream(s.getInputStream());
+            dout=new DataOutputStream(s.getOutputStream());
+
+            // continuously reading the input
+            while(true){
+                // storing the input in msg
+                String msg=din.readUTF();
+
+                // formatting the msg and converting it to panel
+                JPanel panel=formatPanel(msg);
+
+                // adding this formatted panel to left side of body
+                JPanel left=new JPanel(new BorderLayout());
+                left.add(panel, BorderLayout.LINE_START);
+
+                // adding left panel to vertical
+                vertical.add(left);
+                vertical.add(Box.createVerticalStrut(15));
+
+                // adding vertical to dummy body
+                dummyBody.setLayout(new BorderLayout());
+                dummyBody.add(vertical, BorderLayout.PAGE_START);
+
+                // adding scroll to body
+                body.add(scrollPane);
+
+                // refreshing the body
+                mainFrame.validate();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
