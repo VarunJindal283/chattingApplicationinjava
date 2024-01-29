@@ -11,7 +11,8 @@ public class client extends JFrame implements ActionListener{
     JPanel body;
     JTextField text;
     Box vertical=Box.createVerticalBox();
-    JScrollPane scrollPane = new JScrollPane(vertical);
+    JPanel dummyBody=new JPanel(); // as we can't apply border layout page end on vertical box inside scroll page, it will not work, so we have to make dummy body and add vertical to it and then add it to scroll
+    JScrollPane scrollPane=new JScrollPane(dummyBody, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     client(){
         setLayout(null);
 
@@ -51,8 +52,8 @@ public class client extends JFrame implements ActionListener{
 
         // profile on header panel
         try{
-            if(ClassLoader.getSystemResource("D:/UCA_BATCH/chattingApplicationinjava/icons/1.png")!=null){
-                ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("D:/UCA_BATCH/chattingApplicationinjava/icons/1.png"));
+            if(ClassLoader.getSystemResource("icons/1.png")!=null){
+                ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("icons/1.png"));
                 Image i5=i4.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i6=new ImageIcon(i5);
                 JLabel profile=new JLabel(i6);
@@ -188,23 +189,22 @@ public class client extends JFrame implements ActionListener{
         JPanel right=new JPanel(new BorderLayout());
         right.add(msgpanel, BorderLayout.LINE_END);
 
-        
-        
         // right is add to vertical box plus a strut for providing the space between two msgs
         vertical.add(right);
         vertical.add(Box.createVerticalStrut(15));
 
+        // adding vertical to dummy body
+        dummyBody.setLayout(new BorderLayout());
+        dummyBody.add(vertical, BorderLayout.PAGE_START);
 
+        // setting width and height after which scroll will start working
+        scrollPane.setPreferredSize(new Dimension(440, 570));
         
-        // setPreferredSize(new Dimension(450, 110));
-        // add(scrollPane, BorderLayout.CENTER);
-        
-        
-        // vertical box is placed above body to add msg one below one
-        body.setLayout(new BorderLayout());
-        body.add(vertical, BorderLayout.PAGE_START);
+        // dummy body was added to scroll and now adding scroll to body
+        body.add(scrollPane);
 
-
+        // setting text box as empty after send button is clicked
+        text.setText("");
 
         // for refreshing the body, to get new text on screen
         repaint();
