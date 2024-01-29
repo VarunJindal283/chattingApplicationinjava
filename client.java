@@ -26,8 +26,8 @@ public class client extends JFrame implements ActionListener{
         // arrow on header panel
         try {
             JLabel arrow;
-            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
-                ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+            if(ClassLoader.getSystemResource("icons/1.png")!=null){
+                ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons/1.png"));
                 Image i2=i1.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i3=new ImageIcon(i2);
                 arrow=new JLabel(i3);
@@ -51,8 +51,8 @@ public class client extends JFrame implements ActionListener{
 
         // profile on header panel
         try{
-            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
-                ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+            if(ClassLoader.getSystemResource("D:/UCA_BATCH/chattingApplicationinjava/icons/1.png")!=null){
+                ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("D:/UCA_BATCH/chattingApplicationinjava/icons/1.png"));
                 Image i5=i4.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i6=new ImageIcon(i5);
                 JLabel profile=new JLabel(i6);
@@ -71,8 +71,8 @@ public class client extends JFrame implements ActionListener{
 
         // video icon on header panel
         try{
-            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
-                ImageIcon i7=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+            if(ClassLoader.getSystemResource("icons/1.png")!=null){
+                ImageIcon i7=new ImageIcon(ClassLoader.getSystemResource("icons/1.png"));
                 Image i8=i7.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i9=new ImageIcon(i8);
                 JLabel video=new JLabel(i9);
@@ -90,8 +90,8 @@ public class client extends JFrame implements ActionListener{
 
         // phone icon on header panel
         try{
-            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
-                ImageIcon i10=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+            if(ClassLoader.getSystemResource("icons/1.png")!=null){
+                ImageIcon i10=new ImageIcon(ClassLoader.getSystemResource("icons/1.png"));
                 Image i11=i10.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i12=new ImageIcon(i11);
                 JLabel phone=new JLabel(i12);
@@ -109,8 +109,8 @@ public class client extends JFrame implements ActionListener{
 
         // more icon on header panel
         try{
-            if(ClassLoader.getSystemResource("icons/1.jpg")!=null){
-                ImageIcon i13=new ImageIcon(ClassLoader.getSystemResource("icons/1.jpg"));
+            if(ClassLoader.getSystemResource("icons/1.png")!=null){
+                ImageIcon i13=new ImageIcon(ClassLoader.getSystemResource("icons/1.png"));
                 Image i14=i13.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
                 ImageIcon i15=new ImageIcon(i14);
                 JLabel more=new JLabel(i15);
